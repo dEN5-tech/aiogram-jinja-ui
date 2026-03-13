@@ -65,6 +65,10 @@ jobs:
     name: Publish to PyPI
     runs-on: ubuntu-latest
     needs: build
+    # Обязательно добавьте эти разрешения
+    permissions:
+      id-token: write  # Нужно для OIDC
+      contents: read
 
     steps:
       - name: Download build artifacts
@@ -74,7 +78,4 @@ jobs:
           path: dist
 
       - name: Publish package to PyPI
-        if: secrets.PYPI_API_TOKEN != ''
         uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          password: ${{ secrets.PYPI_API_TOKEN }}
