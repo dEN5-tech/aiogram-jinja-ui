@@ -65,9 +65,8 @@ jobs:
     name: Publish to PyPI
     runs-on: ubuntu-latest
     needs: build
-    # Обязательно добавьте эти разрешения
     permissions:
-      id-token: write  # Нужно для OIDC
+      id-token: write
       contents: read
 
     steps:
