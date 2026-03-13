@@ -1,9 +1,16 @@
+"""Keyboard DSL parser for Telegram markups.
+
+This module parses keyboard blocks extracted from templates and produces
+aiogram-native keyboard markup objects.
+"""
+
 import re
+
 from aiogram.types import (
-    InlineKeyboardMarkup,
-    ReplyKeyboardMarkup,
     InlineKeyboardButton,
+    InlineKeyboardMarkup,
     KeyboardButton,
+    ReplyKeyboardMarkup,
 )
 from aiogram.types.web_app_info import WebAppInfo
 from aiogram.utils.keyboard import InlineKeyboardBuilder, ReplyKeyboardBuilder
@@ -12,11 +19,23 @@ from .exceptions import KeyboardParseError
 
 
 class KeyboardParser:
+    """Parse inline/reply keyboard DSL blocks into aiogram markup objects."""
+
     BTN_PATTERN = re.compile(r"\[\s*(.+?)\s*(?:\|\s*(.+?)\s*)?\]")
     GRID_PATTERN = re.compile(r"<!--\s*grid:\s*(\d+)\s*-->")
 
     @classmethod
     def parse_inline(cls, raw_text: str) -> InlineKeyboardMarkup:
+        """Parse inline keyboard DSL.
+
+        Supported actions:
+        - ``cb:<data>`` (or raw callback data)
+        - ``url:<https://...>``
+        - ``webapp:<https://...>``
+
+        Optional layout marker:
+        ``<!-- grid: N -->`` where ``N`` is row width.
+        """
         grid_match = cls.GRID_PATTERN.search(raw_text)
         grid_width = int(grid_match.group(1)) if grid_match else 0
         builder = InlineKeyboardBuilder()
@@ -61,6 +80,12 @@ class KeyboardParser:
 
     @classmethod
     def parse_reply(cls, raw_text: str) -> ReplyKeyboardMarkup:
+        """Parse reply keyboard DSL.
+
+        Supported special actions:
+        - ``request_contact``
+        - ``request_location``
+        """
         builder = ReplyKeyboardBuilder()
 
         for line in raw_text.strip().split("\n"):

@@ -1,10 +1,13 @@
+"""Custom exception hierarchy for :mod:`aiogram_jinja_ui`."""
+
+
 class TelegramUIError(Exception):
-    """Базовое исключение пакета"""
+    """Base exception for all library-specific errors."""
 
 
 class TemplateRenderError(TelegramUIError):
-    """Ошибка при рендеринге Jinja-шаблона"""
+    """Raised when template rendering or extraction fails."""
 
 
 class KeyboardParseError(TelegramUIError):
-    """Ошибка при парсинге DSL клавиатуры"""
+    """Raised when Telegram keyboard DSL is invalid."""
