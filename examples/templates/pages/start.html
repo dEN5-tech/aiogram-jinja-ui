@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block content %}
+� <b>Менеджер загрузок</b>
+──────────────────────────
+
+{% if awaiting_url %}
+📝 <b>Ожидание ссылки...</b>
+Пожалуйста, отправьте URL файла прямо в чат.
+
+<i>Поддерживаются прямые ссылки на .bin, .zip, .dat и др.</i>
+{% else %}
+Вы можете скачать любой файл до 50 МБ прямо на сервер Telegram.
+Нажмите кнопку ниже, чтобы начать.
+{% endif %}
+
+{% keyboard inline %}
+    {% if awaiting_url %}
+        [ ❌ Отмена | cb:start_download ]
+    {% else %}
+        [ � Скачать файл | cb:start_download ]
+    {% endif %}
+{% endkeyboard %}
+{% endblock %}

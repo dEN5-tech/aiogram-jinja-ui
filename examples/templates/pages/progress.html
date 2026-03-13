@@ -1,0 +1,18 @@
+{# pages/progress.html #}
+{% set filled = (percent / 10) | int %}
+{% set empty = 10 - filled %}
+
+📥 <b>Загрузка:</b> <code>{{ file_name }}</code>
+──────────────────────────
+
+<code>{{ "■" * filled }}{{ "□" * empty }}</code> <b>{{ percent }}%</b>
+
+📄 Статус: <i>{{ status_text }}</i>
+
+{% keyboard inline %}
+    {% if percent < 100 %}
+        [ ⏳ В процессе... | cb:none ]
+    {% else %}
+        [ ✅ Файл готов | cb:none ]
+    {% endif %}
+{% endkeyboard %}
