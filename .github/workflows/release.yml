@@ -74,7 +74,7 @@ jobs:
           path: dist
 
       - name: Publish package to PyPI
-        if: ${{ secrets.PYPI_API_TOKEN != '' }}
+        if: secrets.PYPI_API_TOKEN != ''
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
