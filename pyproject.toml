@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aiogram-jinja-ui"
-version = "1.0.0"
+version = "1.0.1"
 description = "Production-grade Jinja2 UI rendering engine for aiogram with keyboard DSL and session sync"
 authors = ["dEN5 <moyadres_1@mail.ru>"]
 license = "MIT"
